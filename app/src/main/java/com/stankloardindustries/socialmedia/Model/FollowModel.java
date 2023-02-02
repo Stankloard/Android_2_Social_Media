@@ -1,17 +1,25 @@
 package com.stankloardindustries.socialmedia.Model;
 
-public class FriendModel {
-    int friendProfileImg;
+public class FollowModel {
+    private String follwedBy;
+    private long follwedAt;
 
-    public FriendModel(int friendProfileImg) {
-        this.friendProfileImg = friendProfileImg;
+    public FollowModel() {
     }
 
-    public int getFriendProfileImg() {
-        return friendProfileImg;
+    public String getFollwedBy() {
+        return follwedBy;
     }
 
-    public void setFriendProfileImg(int friendProfileImg) {
-        this.friendProfileImg = friendProfileImg;
+    public void setFollwedBy(String follwedBy) {
+        this.follwedBy = follwedBy;
+    }
+
+    public long getFollwedAt() {
+        return follwedAt;
+    }
+
+    public void setFollwedAt(long follwedAt) {
+        this.follwedAt = follwedAt;
     }
 }

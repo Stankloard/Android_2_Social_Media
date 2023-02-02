@@ -1,30 +1,45 @@
 package com.stankloardindustries.socialmedia.Model;
 
-import com.stankloardindustries.socialmedia.R;
-
 public class User {
     private String name, profession, email, password;
-    private String CoverPhoto;
+    private String coverPhoto;
+    private String userID;
+    private int followerCount;
+    private String profilePhoto;
+
+    public int getFollowerCount() {
+        return followerCount;
+    }
+
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public String getProfilePhoto() {
-        return ProfilePhoto;
+        return profilePhoto;
     }
 
     public void setProfilePhoto(String profilePhoto) {
-        ProfilePhoto = profilePhoto;
+        this.profilePhoto = profilePhoto;
     }
-
-    private String ProfilePhoto;
 
     public User(){
     }
 
     public String getCoverPhoto() {
-        return CoverPhoto;
+        return coverPhoto;
     }
 
     public void setCoverPhoto(String coverPhoto) {
-        CoverPhoto = coverPhoto;
+        this.coverPhoto = coverPhoto;
     }
 
     public User(String name, String profession, String email, String password) {

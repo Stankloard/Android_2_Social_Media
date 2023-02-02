@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.stankloardindustries.socialmedia.Adapter.FriendAdapter;
-import com.stankloardindustries.socialmedia.Adapter.PostAdapter;
-import com.stankloardindustries.socialmedia.Model.FriendModel;
+import com.stankloardindustries.socialmedia.Adapter.FollowAdapter;
+import com.stankloardindustries.socialmedia.Model.FollowModel;
 import com.stankloardindustries.socialmedia.Model.User;
 import com.stankloardindustries.socialmedia.R;
 import com.stankloardindustries.socialmedia.databinding.FragmentProfileBinding;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 public class Profile_Fragment extends Fragment {
 
     RecyclerView rv;
-    ArrayList<FriendModel> list;
+    ArrayList<FollowModel> list;
     FragmentProfileBinding binding;
     FirebaseAuth auth;
     FirebaseStorage storage;
@@ -68,20 +69,24 @@ public class Profile_Fragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
+                if(snapshot.exists()){
+                    User user = snapshot.getValue(User.class);
 
-                Picasso.get()
-                        .load(user.getProfilePhoto())
-                        .placeholder(R.drawable.user)
-                        .into(binding.profileImage);
+                    Picasso.get()
+                            .load(user.getProfilePhoto())
+                            .placeholder(R.drawable.user)
+                            .into(binding.profileImage);
 
-                Picasso.get()
-                        .load(user.getCoverPhoto())
-                        .placeholder(R.drawable.photo)
-                        .into(binding.CoverPhoto);
+                    Picasso.get()
+                            .load(user.getCoverPhoto())
+                            .placeholder(R.drawable.photo)
+                            .into(binding.CoverPhoto);
 
-                binding.userName.setText(user.getName());
-                binding.profession.setText(user.getProfession());
+                    binding.userName.setText(user.getName());
+                    binding.profession.setText(user.getProfession());
+
+                    binding.txtFollowers.setText(user.getFollowerCount() + " ");
+                }
             }
 
             @Override
@@ -91,22 +96,32 @@ public class Profile_Fragment extends Fragment {
         });
 
         list = new ArrayList<>();
-        list.add(new FriendModel(R.drawable.profile));
-        list.add(new FriendModel(R.drawable.profile_1));
-        list.add(new FriendModel(R.drawable.profile_2));
-        list.add(new FriendModel(R.drawable.profile_3));
-        list.add(new FriendModel(R.drawable.profile_4));
-        list.add(new FriendModel(R.drawable.profile_5));
-        list.add(new FriendModel(R.drawable.profile_6));
-        list.add(new FriendModel(R.drawable.profile_7));
-        list.add(new FriendModel(R.drawable.profile_8));
-        list.add(new FriendModel(R.drawable.profile_9));
+        //list.add(new FollowModel(R.drawable.profile));
 
-        FriendAdapter adapter = new FriendAdapter(list, getContext());
+        FollowAdapter adapter = new FollowAdapter(list, getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.friendRV.setLayoutManager(manager);
         binding.friendRV.setNestedScrollingEnabled(false);
         binding.friendRV.setAdapter(adapter);
+
+        database.getReference().child("Users")
+                        .child(auth.getUid())
+                        .child("Followers").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
+                        for(DataSnapshot ss: snapshot.getChildren()){
+                            FollowModel followModel = ss.getValue(FollowModel.class);
+                            list.add(followModel);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         binding.changeCoverPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +155,7 @@ public class Profile_Fragment extends Fragment {
                 Uri uri = data.getData();
                 binding.CoverPhoto.setImageURI(uri);
 
-                final StorageReference reference = storage.getReference().child("Cover_Photo")
+                final StorageReference reference = storage.getReference().child("coverPhoto")
                         .child(FirebaseAuth.getInstance().getUid());
 
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -151,7 +166,7 @@ public class Profile_Fragment extends Fragment {
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                database.getReference().child("Users").child(auth.getUid()).child("CoverPhoto").setValue(uri.toString());
+                                database.getReference().child("Users").child(auth.getUid()).child("coverPhoto").setValue(uri.toString());
                             }
                         });
                     }
@@ -164,7 +179,7 @@ public class Profile_Fragment extends Fragment {
                 Uri uri = data.getData();
                 binding.profileImage.setImageURI(uri);
 
-                final StorageReference reference = storage.getReference().child("Profile_Photo")
+                final StorageReference reference = storage.getReference().child("profilePhoto")
                         .child(FirebaseAuth.getInstance().getUid());
 
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -175,7 +190,7 @@ public class Profile_Fragment extends Fragment {
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                database.getReference().child("Users").child(auth.getUid()).child("ProfilePhoto").setValue(uri.toString());
+                                database.getReference().child("Users").child(auth.getUid()).child("profilePhoto").setValue(uri.toString());
                             }
                         });
                     }
