@@ -9,17 +9,17 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.stankloardindustries.socialmedia.Model.FriendModel;
+import com.stankloardindustries.socialmedia.Model.FollowModel;
 import com.stankloardindustries.socialmedia.R;
 
 import java.util.ArrayList;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.viewHolder> {
 
-    ArrayList<FriendModel> list;
+    ArrayList<FollowModel> list;
     Context context;
 
-    public FriendAdapter(ArrayList<FriendModel> list, Context context) {
+    public FriendAdapter(ArrayList<FollowModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,7 +33,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.viewHolder
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        FriendModel model = list.get(position);
+        FollowModel model = list.get(position);
         holder.profilePhoto.setImageResource(model.getFriendProfileImg());
     }
 
