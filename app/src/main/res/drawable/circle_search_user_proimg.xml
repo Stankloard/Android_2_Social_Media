@@ -4,6 +4,6 @@
 
     <stroke
         android:width="@dimen/_1mdp"
-        android:color="@color/orange"/>
+        android:color="@color/UserProfImgCircle"/>
 
 </shape>
