@@ -32,8 +32,8 @@ public class SignUpActivity extends AppCompatActivity {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.statusBarCol));
-        window.setNavigationBarColor(this.getResources().getColor(R.color.Gray2));
+        window.setStatusBarColor(this.getResources().getColor(R.color.color_status_bar));
+        window.setNavigationBarColor(this.getResources().getColor(R.color.color_navigation_bar));
 
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

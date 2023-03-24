@@ -6,7 +6,7 @@
     android:paddingBottom="16dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image_2"
+        android:id="@+id/profileImagePost"
         android:layout_width="@dimen/_40mdp"
         android:layout_height="@dimen/_40mdp"
         android:layout_marginTop="4dp"
@@ -20,11 +20,11 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/orange_cirlce"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image_2"
-        app:layout_constraintEnd_toEndOf="@+id/profile_image_2"
-        app:layout_constraintStart_toStartOf="@+id/profile_image_2"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_2" />
+        android:background="@drawable/circle_post_proimg"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImagePost"
+        app:layout_constraintEnd_toEndOf="@+id/profileImagePost"
+        app:layout_constraintStart_toStartOf="@+id/profileImagePost"
+        app:layout_constraintTop_toTopOf="@+id/profileImagePost" />
 
     <TextView
         android:id="@+id/username"
@@ -35,9 +35,9 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image_2"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_2"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_2"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImagePost"
+        app:layout_constraintStart_toEndOf="@+id/profileImagePost"
+        app:layout_constraintTop_toTopOf="@+id/profileImagePost"
         app:layout_constraintVertical_bias="0.15" />
 
     <TextView
@@ -53,9 +53,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image_2"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImagePost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_2"
+        app:layout_constraintTop_toTopOf="@+id/profileImagePost"
         app:layout_constraintVertical_bias=".40"
         app:srcCompat="@drawable/ic_more" />
 
@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_2"
+        app:layout_constraintTop_toBottomOf="@+id/profileImagePost"
         app:riv_corner_radius="10dip"
         app:riv_mutate_background="true"
         app:riv_tile_mode="clamp" />
@@ -85,6 +85,19 @@
         app:srcCompat="@drawable/ic_bmark" />
 
     <TextView
+        android:id="@+id/postDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:text=". . ."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+
+    <TextView
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,32 +108,30 @@
         android:gravity="center"
         android:text="354"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+        app:layout_constraintTop_toBottomOf="@+id/postDesc" />
 
     <TextView
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_chat"
         android:drawablePadding="6dp"
         android:gravity="center"
         android:text="43"
         app:layout_constraintStart_toEndOf="@+id/like"
-        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+        app:layout_constraintTop_toTopOf="@+id/like" />
 
     <TextView
         android:id="@+id/forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_share"
         android:drawablePadding="6dp"
         android:gravity="center"
         android:text="32"
         app:layout_constraintStart_toEndOf="@+id/comment"
-        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+        app:layout_constraintTop_toTopOf="@+id/comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.stankloardindustries.socialmedia.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.stankloardindustries.socialmedia.CommentActivity;
 import com.stankloardindustries.socialmedia.Model.PostModel;
+import com.stankloardindustries.socialmedia.Model.User;
 import com.stankloardindustries.socialmedia.R;
+import com.stankloardindustries.socialmedia.databinding.DashboardRvSampleBinding;
 
 import java.util.ArrayList;
 
@@ -35,44 +46,100 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder>{
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         PostModel model = list.get(position);
-        holder.profile.setImageResource(model.getProfile());
+        /*holder.profile.setImageResource(model.getProfile());
         holder.postImg.setImageResource(model.getPostImg());
         holder.saveImg.setImageResource(model.getSaveImg());
         holder.name.setText(model.getName());
         holder.about.setText(model.getAbout());
         holder.like.setText(model.getLike());
         holder.comment.setText(model.getComment());
-        holder.share.setText(model.getShare());
+        holder.share.setText(model.getShare());*/
 
-        final boolean[] like_condition = {true};
+        Picasso.get().load(model.getPostImage())
+                .placeholder(R.drawable.photo)
+                .into(holder.binding.postImage);
 
-        holder.like.setOnClickListener(new View.OnClickListener() {
+        String postDescription = model.getPostDesc();
+        holder.binding.like.setText(model.getPostLike() + "");
+        holder.binding.comment.setText(model.getCommentCount() + "");
+
+        if(postDescription.equals("")){
+            holder.binding.postDesc.setVisibility(View.GONE);
+        } else{
+            holder.binding.postDesc.setText(postDescription);
+            holder.binding.postDesc.setVisibility(View.VISIBLE);
+        }
+
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .child(model.getPostedBy()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        Picasso.get().load(user.getProfilePhoto())
+                                .placeholder(R.drawable.user)
+                                .into(holder.binding.profileImagePost);
+                        holder.binding.username.setText(user.getName());
+                        holder.binding.about.setText(user.getProfession());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().
+                child("posts").
+                child(model.getPostId()).
+                child("likes").
+                child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
+                        } else {
+                            holder.binding.like.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("posts")
+                                            .child(model.getPostId())
+                                            .child("likes")
+                                            .child(FirebaseAuth.getInstance().getUid())
+                                            .setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    FirebaseDatabase.getInstance().getReference()
+                                                            .child("posts")
+                                                            .child(model.getPostId())
+                                                            .child("postLike")
+                                                            .setValue(model.getPostLike() + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red, 0, 0, 0);
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        holder.binding.comment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(like_condition[0]){
-                    holder.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_red,0,0,0);
-                    like_condition[0] = false;
-                }
-                else{
-                    holder.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like,0,0,0);
-                    like_condition[0] = true;
-                }
-            }
-        });
-
-        final boolean[] bk_condition = {true};
-
-        holder.saveImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(bk_condition[0]){
-                    holder.saveImg.setImageResource(R.drawable.ic_bkmrk_green);
-                    bk_condition[0] = false;
-                }
-                else{
-                    holder.saveImg.setImageResource(R.drawable.ic_bmark);
-                    bk_condition[0] = true;
-                }
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("postId", model.getPostId());
+                intent.putExtra("postedBy", model.getPostedBy());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
@@ -84,20 +151,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder>{
 
     public class viewHolder extends RecyclerView.ViewHolder{
 
-        ImageView profile, postImg, saveImg;
-        TextView name, about, like, comment, share;
+        DashboardRvSampleBinding binding;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profile = itemView.findViewById(R.id.profile_image_2);
-            postImg = itemView.findViewById(R.id.postImage);
-            saveImg = itemView.findViewById(R.id.save);
-            name = itemView.findViewById(R.id.username);
-            about = itemView.findViewById(R.id.about);
-            like = itemView.findViewById(R.id.like);
-            comment = itemView.findViewById(R.id.comment);
-            share = itemView.findViewById(R.id.forward);
+            binding = DashboardRvSampleBinding.bind(itemView);
         }
     }
 }

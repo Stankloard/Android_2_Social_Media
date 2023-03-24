@@ -4,6 +4,6 @@
 
     <stroke
         android:width="@dimen/_1mdp"
-        android:color="@color/MainActNavStatus"/>
+        android:color="@color/color_user_profile_cirlce"/>
 
 </shape>

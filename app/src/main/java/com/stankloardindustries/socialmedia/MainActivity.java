@@ -12,11 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.iammert.library.readablebottombar.ReadableBottomBar;
-import com.stankloardindustries.socialmedia.Fragments.Add_Fragment;
+import com.stankloardindustries.socialmedia.Fragments.AddPostFragment;
 import com.stankloardindustries.socialmedia.Fragments.Home_Fragment;
 import com.stankloardindustries.socialmedia.Fragments.Notificatiion_Fragment;
 import com.stankloardindustries.socialmedia.Fragments.Profile_Fragment;
@@ -40,8 +39,8 @@ public class MainActivity extends AppCompatActivity{
             Window window = this.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.MainActNavStatus));
-            window.setNavigationBarColor(this.getResources().getColor(R.color.MainActNavStatus));
+            window.setStatusBarColor(this.getResources().getColor(R.color.color_main_activity_navigation_status));
+            window.setNavigationBarColor(this.getResources().getColor(R.color.color_main_activity_navigation_status));
         }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity{
                         break;
                     case 2:
                         binding.toolbar.setVisibility(View.GONE);
-                        transaction.replace(R.id.container, new Add_Fragment());
+                        transaction.replace(R.id.container, new AddPostFragment());
                         transaction.commit();
                         break;
                     case 3:

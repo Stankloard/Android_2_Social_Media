@@ -6,9 +6,9 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="@dimen/_60mdp"
-        android:layout_height="@dimen/_60mdp"
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/_50mdp"
+        android:layout_height="@dimen/_50mdp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
@@ -21,11 +21,11 @@
         android:id="@+id/view7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/cyan_circle"
-        diagonal:layout_constraintBottom_toBottomOf="@id/profile_image"
-        diagonal:layout_constraintEnd_toEndOf="@id/profile_image"
-        diagonal:layout_constraintStart_toStartOf="@id/profile_image"
-        diagonal:layout_constraintTop_toTopOf="@id/profile_image" />
+        android:background="@drawable/circle_search_user_proimg"
+        diagonal:layout_constraintBottom_toBottomOf="@id/profileImage"
+        diagonal:layout_constraintEnd_toEndOf="@id/profileImage"
+        diagonal:layout_constraintStart_toStartOf="@id/profileImage"
+        diagonal:layout_constraintTop_toTopOf="@id/profileImage" />
 
     <TextView
         android:id="@+id/uName"
@@ -36,16 +36,16 @@
         android:textColor="#000000"
         android:textSize="@dimen/_14font_mdp"
         diagonal:layout_constraintBottom_toTopOf="@+id/uProfession"
-        diagonal:layout_constraintStart_toEndOf="@+id/profile_image"
-        diagonal:layout_constraintTop_toTopOf="@+id/profile_image"
+        diagonal:layout_constraintStart_toEndOf="@+id/profileImage"
+        diagonal:layout_constraintTop_toTopOf="@+id/profileImage"
         diagonal:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/uProfession"
-        android:layout_width="52dp"
+        android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:text="TextView"
-        diagonal:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        diagonal:layout_constraintBottom_toBottomOf="@+id/profileImage"
         diagonal:layout_constraintStart_toStartOf="@+id/uName"
         diagonal:layout_constraintTop_toBottomOf="@+id/uName" />
 
@@ -59,9 +59,9 @@
         android:paddingEnd="10dp"
         android:text="Follow"
         android:textColor="@color/white"
-        diagonal:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        diagonal:layout_constraintBottom_toBottomOf="@+id/profileImage"
         diagonal:layout_constraintEnd_toEndOf="parent"
-        diagonal:layout_constraintTop_toTopOf="@+id/profile_image"
+        diagonal:layout_constraintTop_toTopOf="@+id/profileImage"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,6 @@ public class Search_Fragment extends Fragment {
 
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +54,16 @@ public class Search_Fragment extends Fragment {
         binding.usersRV.setLayoutManager(layoutManager);
         binding.usersRV.setAdapter(adapter);
 
-        database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for(DataSnapshot ss: snapshot.getChildren()){
                     User user = ss.getValue(User.class);
                     user.setUserID(ss.getKey());
-                    list.add(user);
+                    if(!ss.getKey().equals(FirebaseAuth.getInstance().getUid())){
+                        list.add(user);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }

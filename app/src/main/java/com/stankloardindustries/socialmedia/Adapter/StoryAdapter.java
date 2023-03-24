@@ -55,7 +55,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.viewHolder>{
             super(itemView);
 
             storyImg = itemView.findViewById(R.id.story);
-            profile = itemView.findViewById(R.id.profile_image);
+            profile = itemView.findViewById(R.id.profileImage);
             name = itemView.findViewById(R.id.name);
             storyType = itemView.findViewById(R.id.storyType);
         }

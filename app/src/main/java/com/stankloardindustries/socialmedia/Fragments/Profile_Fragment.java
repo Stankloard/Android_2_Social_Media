@@ -1,5 +1,7 @@
 package com.stankloardindustries.socialmedia.Fragments;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +45,8 @@ public class Profile_Fragment extends Fragment {
     FirebaseAuth auth;
     FirebaseStorage storage;
     FirebaseDatabase database;
+    ProgressDialog dialogProfile;
+    ProgressDialog dialogCover;
 
     public Profile_Fragment(){
 
@@ -55,6 +59,8 @@ public class Profile_Fragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
+        dialogProfile = new ProgressDialog(getContext());
+        dialogCover = new ProgressDialog(getContext());
     }
 
     @Override
@@ -64,6 +70,19 @@ public class Profile_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
+
+        dialogProfile.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialogProfile.setMessage("Please Wait ...");
+        dialogProfile.setTitle("Profile Uploading");
+        dialogProfile.setCancelable(false);
+        dialogProfile.setCanceledOnTouchOutside(false);
+
+        dialogCover.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialogCover.setMessage("Please Wait ...");
+        dialogCover.setTitle("Cover Photot Uploading");
+        dialogCover.setCancelable(false);
+        dialogCover.setCanceledOnTouchOutside(false);
+
 
         database.getReference().child("Users").child(auth.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,7 +169,9 @@ public class Profile_Fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Cover Photo
         if(requestCode == 11){
+            dialogCover.show();
             if(data.getData() != null){
                 Uri uri = data.getData();
                 binding.CoverPhoto.setImageURI(uri);
@@ -161,6 +182,7 @@ public class Profile_Fragment extends Fragment {
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        dialogCover.dismiss();
                         Toast.makeText(getContext(), "Cover Photo Updated",Toast.LENGTH_SHORT).show();
                         // copy image from storage to realtime in firebase
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -174,7 +196,9 @@ public class Profile_Fragment extends Fragment {
             }
         }
 
+        // Profile Photo
         if(requestCode == 22){
+            dialogProfile.show();
             if(data.getData() != null){
                 Uri uri = data.getData();
                 binding.profileImage.setImageURI(uri);
@@ -185,6 +209,7 @@ public class Profile_Fragment extends Fragment {
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        dialogProfile.dismiss();
                         Toast.makeText(getContext(), "Profile Photo Updated",Toast.LENGTH_SHORT).show();
                         // copy image from storage to realtime in firebase
                         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

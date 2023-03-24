@@ -7,22 +7,27 @@
     <color name="teal_700">#017387</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#878787</color>
     <color name="orange">#FF9747</color>
     <color name="green">#55FF8F</color>
-    <color name="greyTrans">#22000000</color>
-
-    <color name="loginSignupBg">#453A3A3A</color>
-    <color name="statusBarCol">#B1B1B1</color>
-    <color name="Gray2">#9A9A9A</color>
-    <color name="Gray3">#E4E4E4</color>
-    <color name="Gray4">#EFEFEF</color>
-    <color name="darkGray">#606060</color>
-    <color name="black_shade">#8D000000</color>
-    <color name="transparent">#00FFFFFF</color>
-    <color name="green_1">#6aaf50</color>
-    <color name="blue_1">#2e57cb</color>
-    <color name="red_1">#C83F1D</color>
     <color name="lightGreen">#D9F7FF</color>
 
-    <color name="MainActNavStatus">#26968A</color>
+    <color name="color_main_activity_navigation_status">#B93554</color>
+    <color name="color_user_profile">#00A37F</color>
+    <color name="color_follow_unactive">#D1D1D1</color>
+    <color name="color_status_bar">#B1B1B1</color>
+    <color name="color_navigation_bar">#9A9A9A</color>
+    <color name="color_toolbar_indicator">#606060</color>
+    <color name="color_user_profile_cirlce">#252525</color>
+    <color name="color_follower_profile_cirlce">#636363</color>
+
+    <color name="color_toolbars_icon">#252525</color>
+
+    <color name="bg_filter_blackish_story">#3B000000</color>
+    <color name="bg_filter_transparent_edittext_login_signup">#00FFFFFF</color>
+    <color name="bg_filter_login_signup">#453A3A3A</color>
+    <color name="bg_filter_profile_cover_img">#16000000</color>
+    <color name="bg_profile_filter">#E4E4E4</color>
+    <color name="bg_profile_cardlayout">#EFEFEF</color>
+
 </resources>

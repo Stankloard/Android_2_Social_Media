@@ -6,7 +6,6 @@ public class User {
     private String userID;
     private int followerCount;
     private String profilePhoto;
-
     public int getFollowerCount() {
         return followerCount;
     }

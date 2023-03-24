@@ -63,7 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewHolder>{
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            holder.binding.followBtn.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.follow_active_button));
+                            holder.binding.followBtn.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_comment_write));
                             holder.binding.followBtn.setText("Following");
                             holder.binding.followBtn.setTextColor(context.getResources().getColor(R.color.black));
                             holder.binding.followBtn.setEnabled(false);
@@ -91,7 +91,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewHolder>{
                                                             .setValue(user.getFollowerCount() + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
-                                                                    holder.binding.followBtn.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.follow_active_button));
+                                                                    holder.binding.followBtn.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_comment_write));
                                                                     holder.binding.followBtn.setText("Following");
                                                                     holder.binding.followBtn.setTextColor(context.getResources().getColor(R.color.black));
                                                                     holder.binding.followBtn.setEnabled(false);

@@ -20,7 +20,7 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/orange_cirlce"
+        android:background="@drawable/circle_post_proimg"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_nested"
         app:layout_constraintEnd_toEndOf="@+id/profile_image_nested"
         app:layout_constraintStart_toStartOf="@+id/profile_image_nested"

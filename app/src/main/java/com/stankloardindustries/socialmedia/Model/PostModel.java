@@ -1,81 +1,78 @@
 package com.stankloardindustries.socialmedia.Model;
 
 public class PostModel {
-    int profile, postImg, saveImg;
-    String name, about, like, comment, share;
+    private String postId;
+    private String postImage;
+    private String postedBy;
+    private String postDesc;
+    private long postedAt;
+    private int postLike;
+    private int commentCount;
 
-    public PostModel(int profile, int postImg, int saveImg, String name, String about, String like, String comment, String share) {
-        this.profile = profile;
-        this.postImg = postImg;
-        this.saveImg = saveImg;
-        this.name = name;
-        this.about = about;
-        this.like = like;
-        this.comment = comment;
-        this.share = share;
+    public PostModel(String postId, String postImage, String postedBy, String postDesc, long postedAt) {
+        this.postId = postId;
+        this.postImage = postImage;
+        this.postedBy = postedBy;
+        this.postDesc = postDesc;
+        this.postedAt = postedAt;
     }
 
-    public int getProfile() {
-        return profile;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setProfile(int profile) {
-        this.profile = profile;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
-    public int getPostImg() {
-        return postImg;
+    public int getPostLike() {
+        return postLike;
     }
 
-    public void setPostImg(int postImg) {
-        this.postImg = postImg;
+    public void setPostLike(int postLike) {
+        this.postLike = postLike;
     }
 
-    public int getSaveImg() {
-        return saveImg;
+    public PostModel() {
     }
 
-    public void setSaveImg(int saveImg) {
-        this.saveImg = saveImg;
+    public String getPostId() {
+        return postId;
     }
 
-    public String getName() {
-        return name;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPostImage() {
+        return postImage;
     }
 
-    public String getAbout() {
-        return about;
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public String getPostedBy() {
+        return postedBy;
     }
 
-    public String getLike() {
-        return like;
+    public void setPostedBy(String postedBy) {
+        this.postedBy = postedBy;
     }
 
-    public void setLike(String like) {
-        this.like = like;
+    public String getPostDesc() {
+        return postDesc;
     }
 
-    public String getComment() {
-        return comment;
+    public void setPostDesc(String postDesc) {
+        this.postDesc = postDesc;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public long getPostedAt() {
+        return postedAt;
     }
 
-    public String getShare() {
-        return share;
-    }
-
-    public void setShare(String share) {
-        this.share = share;
+    public void setPostedAt(long postedAt) {
+        this.postedAt = postedAt;
     }
 }

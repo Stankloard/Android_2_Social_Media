@@ -38,7 +38,7 @@
             android:id="@+id/proET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@color/bg_filter_transparent_edittext_login_signup"
             android:hint="profession"
             android:paddingBottom="5dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
@@ -65,7 +65,7 @@
             android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@color/bg_filter_transparent_edittext_login_signup"
             android:hint="Password"
             android:paddingBottom="5dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
@@ -92,7 +92,7 @@
             android:id="@+id/nameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@color/bg_filter_transparent_edittext_login_signup"
             android:hint="Name"
             android:paddingBottom="5dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
@@ -119,7 +119,7 @@
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@color/bg_filter_transparent_edittext_login_signup"
             android:hint="Email"
             android:paddingBottom="5dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
@@ -147,7 +147,7 @@
         android:id="@+id/view11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/loginSignupBg"
+        android:background="@color/bg_filter_login_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
